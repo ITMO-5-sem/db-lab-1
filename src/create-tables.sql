@@ -44,10 +44,10 @@ create table astro_body
     composition_id int references composition (id) not null
 );
 
-CREATE TABLE discovered_astro_bodies
+create table discovered_astro_bodies
 (
     id                   serial primary key,
-    discovered_time      timestamp                             not null,
+    discovered_time      timestamp not null,
     signal_id            int references signal (id),
     astro_body_code_name int references astro_body (code_name) not null
 );
