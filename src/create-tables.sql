@@ -2,11 +2,11 @@ create table radar
 (
     serial_number int primary key,
     ship_name varchar(16)
-        constraint not_empty_name check (len(ship_name) > 4),
+        constraint not_too_short_name check (length(ship_name) > 4),
     period integer
         constraint positive_period check (period > 0),
     explore_start_date date
-        constraint valid_explore_start_date check (EXTRACT(YEAR FROM explore_start_date) > 2021)
+        constraint valid_explore_start_date check (EXTRACT(YEAR FROM explore_start_date) >= 2021)
     );
 
 create table coordinates
@@ -30,7 +30,7 @@ create table signal_params
 create table composition
 (
     id serial primary key,
-    description text not null constraint not_empty_description check (len(description) > 3)
+    description text not null constraint not_empty_description check (length(description) > 3)
 );
 
 create table signal
