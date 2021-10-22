@@ -1,59 +1,87 @@
 create table radar
 (
-    serial_number int primary key,
-    ship_name varchar(16)
-        constraint not_too_short_name check (length(ship_name) > 4),
-    period integer
-        constraint positive_period check (period > 0),
-    explore_start_date date
-        constraint valid_explore_start_date check (EXTRACT(YEAR FROM explore_start_date) >= 2021)
-    );
+    id                 serial primary key,
+    serial_number      int not null unique
+        check ( serial_number >= 100000 and serial_number <= 999999 ),
 
-create table coordinates
-(
-    id serial primary key,
-    x int not null,
-    y int not null
+    ship_name          varchar(16)
+        check (length( ship_name ) > 4),
+
+    period             integer
+        check (period > 0),
+
+    explore_start_date date
+        check (EXTRACT( YEAR FROM explore_start_date ) >= 2021)
 );
+
 
 create table signal_params
 (
-    id serial primary key,
+    id        serial primary key,
     intensity numeric not null
-        constraint positive_intensity check (intensity > 0),
+        check (intensity > 0),
+
     frequency numeric not null
-        constraint positive_frequency check (frequency > 0),
+        check (frequency > 0),
+
     amplitude numeric not null
-        constraint positive_amplitude check (amplitude > 0)
+        check (amplitude > 0)
 );
+
 
 create table composition
 (
-    id serial primary key,
-    description text not null constraint not_empty_description check (length(description) > 3)
+    id          serial primary key,
+    name        varchar(16) not null unique
+        check (length( name ) > 0),
+
+    description text        not null
+        check (length( description ) > 3)
 );
+
 
 create table signal
 (
-    id serial primary key,
-    sent_time timestamp not null,
-    radar_serial_number int references radar (serial_number) not null ,
-    sent_coords_id int references coordinates (id) not null,
-    params_id int references signal_params (id) not null
+    id           serial primary key,
+    sent_time    timestamp not null,
+    sent_coord_x int       not null,
+    sent_coord_y int       not null,
+    radar_id     int       not null
+        references radar
+            on delete set null,
+
+    params_id    int       not null
+        references signal_params
+            on delete restrict
 );
+
 
 create table astro_body
 (
-    code_name serial primary key,
-    mass int constraint positive_mass check (mass > 0),
-    coords_id int references coordinates (id) not null,
-    composition_id int references composition (id) not null
+    id             serial primary key,
+    code_name      varchar(32) not null unique,
+    mass           int
+        check (mass > 0),
+
+    coord_x        int         not null,
+    coord_y        int         not null,
+    composition_id int         not null
+        references composition
+            on delete restrict
 );
+
 
 create table discovered_astro_bodies
 (
-    id                   serial primary key,
-    discovered_time      timestamp not null,
-    signal_id            int references signal (id) not null,
-    astro_body_code_name int references astro_body (code_name) not null
+    id              serial primary key,
+    discovered_time timestamp not null,
+
+    signal_id       int       not null
+        references signal
+            on delete restrict,
+
+    astro_body_id   int       not null
+        references astro_body
+            on delete restrict
 );
+
