@@ -13,6 +13,7 @@ values
         '179071', 'Thanos', '4', '26.09.2021'
     );
 
+
 insert into signal_params
 (
     intensity, frequency, amplitude

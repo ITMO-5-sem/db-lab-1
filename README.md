@@ -2,6 +2,14 @@
 
 > Предмет: Информационные системы и базы данных
 
+## Отчет по лабораторной работе
+[Отчет PDF](extra/db-lab-1-report.pdf)
+
+[Отчет на Google Drive (always the newest version)](
+https://docs.google.com/document/d/1DQzyUpTiQTxwq1yFmifVrJIqzTDtW97LegijeUkhTaA/edit?usp=sharing)
+
+
+
 ## Защита лабораторной работы
 
 ### SQL запрос
@@ -71,6 +79,6 @@ join
 radar on signal_and_params.radar_id = radar.id;
 
 ```
-
+---
 #### Результат выполнения запроса
-![](extra/db-lab-1 SQL query output.png)
+![Картинка](extra/sql-query-output.png)
