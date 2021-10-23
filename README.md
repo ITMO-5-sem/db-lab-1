@@ -81,4 +81,12 @@ radar on signal_and_params.radar_id = radar.id;
 ```
 ---
 #### Результат выполнения запроса
+
 ![Картинка](extra/sql-query-output.png)
+
+Результат полностью
+
+| signal\_id | signal\_sent\_time | signal\_sent\_coord\_x | signal\_sent\_coord\_x | params\_intensity | params\_frequency | params\_amplitude | radar\_serial\_number | radar\_ship\_name | radar\_period | radar\_explore\_start\_date |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | 2021-09-19 16:26:14.000000 | 12312 | 9087 | 16 | 62 | 4 | 166234 | Enterprise | 12 | 2021-09-20 |
+
